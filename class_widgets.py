@@ -38,8 +38,8 @@ class Button(t.Button):
         self.configure(state=new_state)
 
 class Checkbutton(t.Checkbutton):
-    def __init__(self, parent, variable, command=""):
-        t.Checkbutton.__init__(self, master=parent, variable=variable, command=command)
-
+    def __init__(self, parent, variable, text="", command=""):
+        t.Checkbutton.__init__(self, master=parent, variable=variable, command=command, text=text)
+            
     def change_state(self, new_state):
         self.configure(state=new_state)
