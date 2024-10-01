@@ -56,7 +56,7 @@ class VTableCreation():
                 x += 1
             self.shift_alphabet = self.new_alphabet
             x = 0
-            while x < 26:
+            while x < len(self.shift_alphabet):#26:
                 self.v_table.append(self.shift_alphabet.copy())
                 self.shift_alphabet.append(self.shift_alphabet.pop(0))
                 x += 1
@@ -97,11 +97,15 @@ def VTableLoading():
                 return None
             else:
                 for line in v_table:
-                    if len(line) != 26:
-                        show_error("Line Length Error", "Error: All lines of the vigenere table must be 26 letters long.")
+                    line_length = len(line)
+                    print("Line length: " + str(line_length))
+                    if line_length != 26 and line_length != 35 and line_length != 67 and line_length != 68:
+                        show_error("Line Length Error", "Error: All lines of the vigenere table must be 26, 35, 67 or 68 letters long.")
                         return None
-                if len(v_table) != 26:
-                    show_error("Vigenere Table Length Error", "Error: The vigenere table must be 26 lines long.")
+                v_table_length = len(v_table)
+                print("Table length: " + str(v_table_length))
+                if v_table_length != 26 and v_table_length != 35 and v_table_length != 67 and v_table_length != 68:
+                    show_error("Vigenere Table Length Error", "Error: The vigenere table must be 26, 35, 67 or 68 lines long.")
                     return None
                 #show_message("Load Successful", "Vigenere table loaded successfully")
                 return v_table
