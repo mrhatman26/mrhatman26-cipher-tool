@@ -1,4 +1,5 @@
 import tkinter as t
+import traceback
 from tkinter.ttk import *
 from class_window import *
 from class_widgets import *
@@ -110,11 +111,14 @@ class DecipherWindow():
                     break
                 line_no += 1
             try:
-                line_index = self.v_table[line_no].index(message[letter_no])
-                deciphered_text = deciphered_text + self.v_table[0][line_index]
-            except Exception as e:
+                if message[letter_no] != "\n":
+                    line_index = self.v_table[line_no].index(message[letter_no])
+                    print("Changing " + key_letter + " to " + self.v_table[0][line_index])
+                    deciphered_text = deciphered_text + self.v_table[0][line_index]
+                else:
+                    deciphered_text = deciphered_text + message[letter_no]
+            except Exception:
                 deciphered_text = deciphered_text + message[letter_no]
-                #show_error("Error", "Error: " + str(e))
             letter_no += 1
         return deciphered_text
             

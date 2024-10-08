@@ -10,22 +10,17 @@ from misc import *
 class VTableCreation():
     def __init__(self, resolution, title, resize_horizontal, resize_vertical):
         self.alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-        self.numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        self.extra_chars = ["!", '"', "'", "£", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", "{", "}", "[", "]", ";", ":", "@", "#", "~", "<", ">", ",", ".", "?", "/", "\\", "|"]
+        self.alphabet_lower = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
         self.new_alphabet = self.alphabet
         self.shift_alphabet = self.alphabet
         self.key = ""
         self.v_table = []
         self.window = WindowBase(resolution, title, resize_horizontal, resize_vertical, False)
-        self.numbers_check_val = t.IntVar()
-        self.exchars_check_val = t.IntVar()
-        self.space_check_val = t.IntVar()
+        self.lowercase_check_val = t.IntVar()
         self.widgets = {
                 "label_key": Label(self.window, "Please enter a key for the vigenere table:"),
                 "entry_key": Entry(self.window, "center", 20),
-                "check_include_nos": Checkbutton(self.window, self.numbers_check_val, "Include Numbers"),
-                "check_include_exhcars": Checkbutton(self.window, self.exchars_check_val, "Include Extra Characters"),
-                "check_include_spaces": Checkbutton(self.window, self.space_check_val, "Include Spaces"),
+                "check_include_lower": Checkbutton(self.window, self.lowercase_check_val, "Include Lowercase"),
                 "button_submit": Button(self.window, "Submit", lambda: self.button_submit(), 20)
             }
 
@@ -40,14 +35,8 @@ class VTableCreation():
         if self.widgets["entry_key"].get() == "":
             show_message("No Key", "Please enter a key.")
         else:
-            if bool(self.numbers_check_val.get()) is True:
-                for number in self.numbers:
-                    self.new_alphabet.append(number)
-            if bool(self.exchars_check_val.get()) is True:
-                for character in self.extra_chars:
-                    self.new_alphabet.append(character)
-            if bool(self.space_check_val.get()) is True:
-                self.new_alphabet.append(" ")
+            if bool(self.lowercase_check_val.get()) is True:
+                self.new_alphabet = self.new_alphabet + self.alphabet_lower
             print(self.new_alphabet)
             self.key = self.widgets["entry_key"].get().upper()
             x = 0
