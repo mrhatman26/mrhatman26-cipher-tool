@@ -23,7 +23,7 @@ class DecipherWindow():
             else:
                 self.message = []
                 for line in self.message_file:
-                    self.message.append(line.upper())
+                    self.message.append(line)#line.upper())
                 self.message_file.close()
                 self.widget_switch(True)
         else:
@@ -68,8 +68,8 @@ class DecipherWindow():
         elif self.widgets["entry_cipher_key"].get() == "":
             show_warning("No Key", "Please enter a key to cipher your message.")
         else:
-            self.key = self.widgets["entry_cipher_key"].get().upper()
-            self.new_key = keygen(self.message, self.widgets["entry_cipher_key"].get().upper())
+            self.key = self.widgets["entry_cipher_key"].get()
+            self.new_key = keygen(self.message, self.widgets["entry_cipher_key"].get())
             if type(self.message) == list:
                 self.deciphered_text = []
                 for line in self.message:
@@ -113,11 +113,11 @@ class DecipherWindow():
             try:
                 if message[letter_no] != "\n":
                     line_index = self.v_table[line_no].index(message[letter_no])
-                    print("Changing " + key_letter + " to " + self.v_table[0][line_index])
+                    #print("Changing " + message[letter_no] + " to " + self.v_table[0][line_index] + " using the key letter of " + key_letter)
                     deciphered_text = deciphered_text + self.v_table[0][line_index]
                 else:
                     deciphered_text = deciphered_text + message[letter_no]
-            except Exception:
+            except:
                 deciphered_text = deciphered_text + message[letter_no]
             letter_no += 1
         return deciphered_text

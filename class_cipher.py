@@ -22,7 +22,7 @@ class CipherWindow():
             else:
                 self.message = []
                 for line in self.message_file:
-                    self.message.append(line.upper())
+                    self.message.append(line)#.upper())
                 self.message_file.close()
                 self.widget_switch(True)
             
@@ -68,10 +68,9 @@ class CipherWindow():
         elif self.widgets["entry_cipher_key"].get() == "":
             show_warning("No Key", "Please enter a key to cipher your message.")
         else:
-            self.key = self.widgets["entry_cipher_key"].get().upper()
-            self.new_key = keygen(self.message, self.widgets["entry_cipher_key"].get().upper())
-            self.new_key = self.new_key.upper()
-            if type(self.message) == list:#if "\n" in self.message:
+            self.key = self.widgets["entry_cipher_key"].get()
+            self.new_key = keygen(self.message, self.widgets["entry_cipher_key"].get())
+            if type(self.message) == list:
                 self.cipher_text = []
                 for line in self.message:
                     print(line)
@@ -97,19 +96,26 @@ class CipherWindow():
                         show_message("Saved", "Ciphered text has been saved")
                     else:
                         show_warning("Not Saved", "Warning: Ciphered text has not been saved.")
+            print(self.key)
+            print(self.new_key)
             self.end_window()
             
     def cipher(self, message, new_key):
         cipher_text = ""
         letter_no = 0
-        for letter in message.upper():
+        for letter in message:
+            print("Current letter is: " + letter)
             line_no = 0
             for line in self.v_table:
+                #print("Does " + line[0] + " equal " + letter + "?")
                 if line[0] == letter:
+                    #print("Yes, it does!")
                     break
+                #print("No, it doesn't")
                 line_no += 1
             try:
                 line_index = self.v_table[0].index(new_key[letter_no])
+                print("Changing " + letter + " to " + self.v_table[line_no][line_index] + " using the key of " + new_key[letter_no])
                 cipher_text = cipher_text + self.v_table[line_no][line_index]
             except:
                 cipher_text = cipher_text + letter

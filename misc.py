@@ -128,4 +128,5 @@ def keygen(message, key):
                 new_key = new_key + key[key_pos]
             key_pos += 1
             mes_pos += 1
+        print("new_key is: " + new_key)
         return new_key

@@ -37,8 +37,10 @@ class VTableCreation():
         else:
             if bool(self.lowercase_check_val.get()) is True:
                 self.new_alphabet = self.new_alphabet + self.alphabet_lower
+                self.key = self.widgets["entry_key"].get()
+            else:
+                self.key = self.widgets["entry_key"].get().upper()
             print(self.new_alphabet)
-            self.key = self.widgets["entry_key"].get().upper()
             x = 0
             for letter in self.key:
                 self.new_alphabet.insert(x, self.new_alphabet.pop(self.new_alphabet.index(letter)))
