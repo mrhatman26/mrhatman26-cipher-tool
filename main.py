@@ -13,11 +13,7 @@ if __name__ == "__main__":
         option = MainMenu(res_spec(880, 600), p_name + " - Main Menu", False, False, v_table).pack_and_run()
         print("option = " + str(option))
         if option == 0:
-            v_table = VTableCreation(res_spec(340, 500), p_name + " - Vigenere Table Generation", False, False).pack_and_run()
-            if v_table is None:
-                show_warning("No Vigenere Table", "Warning: No vigenere table was loaded")
-            else:
-                show_message("Load Successful", "Vigenere table loaded successfully")
+            v_table = VTableLoading(VTableCreation(res_spec(340, 500), p_name + " - Vigenere Table Generation", False, False).pack_and_run())
         if option == 1:
             v_table = VTableLoading()
             if v_table is None:

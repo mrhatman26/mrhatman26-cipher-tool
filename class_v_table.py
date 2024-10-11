@@ -62,42 +62,52 @@ class VTableCreation():
         self.window.destroy()
 
 #Vtable Loading
-def VTableLoading():
-    v_table_file = load_file()
-    if v_table_file is None:
-        show_error("No File Selected", "Error: No file has been selected. Please try again.")
-        return None
-    else:
-        try:
-            v_table = []
-            for line in v_table_file:
-                v_table_line = []
-                for letter in line:
-                    if letter != "\n":
-                        v_table_line.append(letter)
-                v_table.append(v_table_line)
-            v_table_file.close()
-        except Except as e:
-            show_error("File Read Error", "The following error occurred when trying to read the selected file:\n" + str(e))
+def VTableLoading(v_table=None):
+    if v_table is None:
+        v_table_file = load_file()
+        if v_table_file is None:
+            show_error("No File Selected", "Error: No file has been selected. Please try again.")
             return None
-        try:
+        else:
+            try:
+                v_table = []
+                for line in v_table_file:
+                    v_table_line = []
+                    for letter in line:
+                        if letter != "\n":
+                            v_table_line.append(letter)
+                    v_table.append(v_table_line)
+                v_table_file.close()
+            except Except as e:
+                show_error("File Read Error", "The following error occurred when trying to read the selected file:\n" + str(e))
+                return None
             if v_table is None or len(v_table) == 0:
                 show_error("File Empty", "Error: file is either empty or does not exist.")
                 return None
             else:
-                for line in v_table:
-                    line_length = len(line)
-                    print("Line length: " + str(line_length))
-                    if line_length != 26 and line_length != 35 and line_length != 67 and line_length != 68:
-                        show_error("Line Length Error", "Error: All lines of the vigenere table must be 26, 35, 67 or 68 letters long.")
-                        return None
-                v_table_length = len(v_table)
-                print("Table length: " + str(v_table_length))
-                if v_table_length != 26 and v_table_length != 35 and v_table_length != 67 and v_table_length != 68:
-                    show_error("Vigenere Table Length Error", "Error: The vigenere table must be 26, 35, 67 or 68 lines long.")
-                    return None
-                #show_message("Load Successful", "Vigenere table loaded successfully")
-                return v_table
-        except Exception as e:
-            show_error("Vigenere Table Check Error", "The following error occurred when checking the vigenere table:\n" + str(e))
+                return VTableCheck(v_table)
+    else:
+        return VTableCheck(v_table)
+
+def VTableCheck(v_table):
+    try:
+        if v_table is None or len(v_table) == 0:
+            show_error("File Empty", "Error: file is either empty or does not exist.")
             return None
+        else:
+            for line in v_table:
+                line_length = len(line)
+                print("Line length: " + str(line_length))
+                if line_length != 26 and line_length != 52:
+                    show_error("Line Length Error", "Error: All lines of the vigenere table must be 26, 35, 67 or 68 letters long.")
+                    return None
+            v_table_length = len(v_table)
+            print("Table length: " + str(v_table_length))
+            if v_table_length != 26 and v_table_length != 52:
+                show_error("Vigenere Table Length Error", "Error: The vigenere table must be 26, 35, 67 or 68 lines long.")
+                return None
+            #show_message("Load Successful", "Vigenere table loaded successfully")
+            return v_table
+    except Exception as e:
+        show_error("Vigenere Table Check Error", "The following error occurred when checking the vigenere table:\n" + str(e))
+        return None

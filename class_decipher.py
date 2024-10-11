@@ -46,7 +46,7 @@ class DecipherWindow():
             self.widgets = {
                     "label_key": Label(self.window, "Please enter a key: "),
                     "entry_cipher_key": Entry(self.window, "center", 40),
-                    "button_start_cipher": Button(self.window, "Start Cipher", lambda: self.button_start_decipher(), 20)
+                    "button_start_cipher": Button(self.window, "Start Decipher", lambda: self.button_start_decipher(), 20)
                 }
         else:
             self.widgets = {
@@ -54,7 +54,7 @@ class DecipherWindow():
                     "entry_cipher_text": Entry(self.window, "center", 40),
                     "label_key": Label(self.window, "Please enter a key: "),
                     "entry_cipher_key": Entry(self.window, "center", 40),
-                    "button_start_cipher": Button(self.window, "Start Cipher", lambda: self.button_start_decipher(), 20)
+                    "button_start_cipher": Button(self.window, "Start Decipher", lambda: self.button_start_decipher(), 20)
                 }
 
     def button_start_decipher(self):
